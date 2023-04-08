@@ -11,9 +11,9 @@ circular-shifting fashion.
 ```
 use quickxorhash::QuickXorHash;
 
-//! let mut qx = QuickXorHash::new();
-//! qx.update(b"hello world");
-//! assert_eq!(qx.finalize(), [104, 40, 3, 27, 216, 240, 6, 16, 220, 225, 13, 114, 107, 3, 25, 0, 0, 0, 0, 0]);
+let mut qx = QuickXorHash::new();
+qx.update(b"hello world");
+assert_eq!(qx.finalize(), [104, 40, 3, 27, 216, 240, 6, 16, 220, 225, 13, 114, 107, 3, 25, 0, 0, 0, 0, 0]);
 ```
 
 ## License
