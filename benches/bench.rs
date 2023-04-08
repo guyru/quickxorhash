@@ -40,5 +40,14 @@ fn bench_unaligned(bench: &mut Bencher) {
     bench.bytes = N as u64;
 }
 
-benchmark_group!(benches, bench_small, bench_large, bench_unaligned);
+/// Test the worst case scenario in terms of optimization.
+fn bench_finalize(bench: &mut Bencher) {
+    const N: usize = 1024 * 1024;
+    let mut qx = QuickXorHash::new();
+    bench.iter(|| {
+        qx.finalize();
+    });
+}
+
+benchmark_group!(benches, bench_small, bench_large, bench_unaligned, bench_finalize);
 benchmark_main!(benches);
