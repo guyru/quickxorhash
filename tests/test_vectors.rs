@@ -2,7 +2,7 @@
 // https://github.com/rclone/rclone/blob/master/backend/onedrive/quickxorhash/quickxorhash_test.go
 
 use base64::prelude::{Engine as _, BASE64_STANDARD};
-use quickxorhash::QuickXorHash;
+use quickxorhash::*;
 
 static TEST_VECTORS: &[(&str, &str)] = &[
         ("", "AAAAAAAAAAAAAAAAAAAAAAAAAAA="),

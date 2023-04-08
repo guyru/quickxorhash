@@ -1,6 +1,6 @@
 # QuickXorHash
 
-[QuickXorHash] implementation in Rust.
+Fast implementation of [QuickXorHash] in pure Rust.
 
 A quick, simple non-cryptographic hash algorithm that works by XORing the bytes in a
 circular-shifting fashion.
