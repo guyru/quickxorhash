@@ -55,22 +55,19 @@ impl QuickXorHash {
 
         if bytes.len() > prefix {
             debug_assert!(self.index == 0);
-            let suffix = bytes.len() - (bytes.len() - prefix) % BLOCK_SIZE;
 
             // The following loop should be heavily optimized by the compiler
-            for block in bytes[prefix..suffix].chunks_exact(BLOCK_SIZE) {
+            let chunks = bytes[prefix..].chunks_exact(BLOCK_SIZE);
+            let tail = chunks.remainder();
+            for block in chunks {
                 self.data
                     .iter_mut()
                     .zip(block.iter())
                     .for_each(|(d, b)| *d ^= *b);
             }
 
-            debug_assert!(bytes[suffix..].len() < BLOCK_SIZE);
-            self.data
-                .iter_mut()
-                .zip(bytes[suffix..].iter())
-                .for_each(|(d, b)| *d ^= *b);
-            self.index += bytes[suffix..].len();
+            self.data.iter_mut().zip(tail).for_each(|(d, b)| *d ^= *b);
+            self.index += tail.len();
         }
         self.length += bytes.len();
     }

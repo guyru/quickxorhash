@@ -32,7 +32,7 @@ fn bench_unaligned(bench: &mut Bencher) {
     let bytes: [u8; N] = core::array::from_fn(|i| (i * 7) as u8);
     bench.iter(|| {
         let mut qx = QuickXorHash::new();
-        for block in bytes[..].chunks(BLOCK_SIZE-1) {
+        for block in bytes[..].chunks(BLOCK_SIZE - 1) {
             qx.update(block);
         }
         qx.finalize();
@@ -40,14 +40,18 @@ fn bench_unaligned(bench: &mut Bencher) {
     bench.bytes = N as u64;
 }
 
-/// Test the worst case scenario in terms of optimization.
 fn bench_finalize(bench: &mut Bencher) {
-    const N: usize = 1024 * 1024;
     let mut qx = QuickXorHash::new();
     bench.iter(|| {
         qx.finalize();
     });
 }
 
-benchmark_group!(benches, bench_small, bench_large, bench_unaligned, bench_finalize);
+benchmark_group!(
+    benches,
+    bench_small,
+    bench_large,
+    bench_unaligned,
+    bench_finalize
+);
 benchmark_main!(benches);
